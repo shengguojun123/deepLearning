@@ -1,28 +1,8 @@
-# -*- coding:utf-8 -*-
-
-"""
-      ┏┛ ┻━━━━━┛ ┻┓
-      ┃　　　　　　 ┃
-      ┃　　　━　　　┃
-      ┃　┳┛　  ┗┳　┃
-      ┃　　　　　　 ┃
-      ┃　　　┻　　　┃
-      ┃　　　　　　 ┃
-      ┗━┓　　　┏━━━┛
-        ┃　　　┃   神兽保佑
-        ┃　　　┃   代码无BUG！
-        ┃　　　┗━━━━━━━━━┓
-        ┃　　　　　　　    ┣┓
-        ┃　　　　         ┏┛
-        ┗━┓ ┓ ┏━━━┳ ┓ ┏━┛
-          ┃ ┫ ┫   ┃ ┫ ┫
-          ┗━┻━┛   ┗━┻━┛
-"""
-
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import cnn_utils
 
 
 def initialize_parameters():
@@ -88,7 +68,10 @@ def compute_cost(Z3, Y):
     return cost
 
 
-my_image1 = "./test_imgs/5.png"
+X_train_orig, Y_train_orig, X_test_orig, Y_test_orig, classes = cnn_utils.load_dataset()
+
+
+my_image1 = "./my.png"
 fileName1 = my_image1
 image1 = mpimg.imread(fileName1)
 plt.imshow(image1)
@@ -111,11 +94,3 @@ with tf.Session() as session:
     res = a.tolist()[0]
     print(res)
     print('预测结果：' +str(res.index(max(res))))
-
-    # predict_op = tf.argmax(Z3, 1)
-    # corrent_prediction = tf.equal(predict_op, tf.argmax(Y, 1))
-    # accuracy = tf.reduce_mean(tf.cast(corrent_prediction, 'float'))
-    # print("corrent_prediction accuracy= " + str(accuracy))
-    # train_accuracy = accuracy.eval({X: my_image1, Y: np.array(['0', '0', '0', '0', '0', '0']).T})
-    # print("训练集准确度：" + str(train_accuracy))
-    pass
